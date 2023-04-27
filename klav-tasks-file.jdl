@@ -1,0 +1,51 @@
+
+application {
+  config {
+    baseName tasks
+    applicationType monolith
+    packageName com.klav.tasks
+    authenticationType oauth2
+    clientFramework react
+    buildTool maven
+    enableTranslation true
+    languages [pt-br, en, es]
+    nativeLanguage pt-br
+    testFrameworks [ protractor, cucumber ]
+    clientPackageManager npm
+    databaseType sql
+    devDatabaseType h2Disk
+    prodDatabaseType mysql
+    clientTheme cerulean
+    enableSwaggerCodegen true
+    serverPort 8080
+  }
+
+  entities *
+}
+
+entity Tarefa {
+  id Long
+  nome String required
+  descricaoDetalhada String required
+  prioridade PrioridadeEnum required
+  dataCadastro Instant
+  dataInicio Instant
+  dataFinal Instant
+}
+
+entity Projeto {
+  id Long
+  nome String required
+}
+
+enum PrioridadeEnum {
+  BAIXA
+  MEDIA
+  ALTA
+  URGENTE
+}
+
+relationship OneToMany {
+  Projeto to Tarefa
+}
+
