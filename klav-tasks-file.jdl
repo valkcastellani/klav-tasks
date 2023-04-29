@@ -49,3 +49,6 @@ relationship OneToMany {
   Projeto to Tarefa
 }
 
+dto * with mapstruct
+
+paginate * with infinite-scroll

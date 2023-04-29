@@ -1,0 +1,67 @@
+@startuml klav-tasks
+!theme materia-outline
+
+title Diagrama de Classes - Klav-Tasks
+
+class Usuario {
+  {field} Int IdUsuario
+  {field} String NomeUsuario
+  {field} String EmailUsuario
+  {field} String ValorHoraUsuario
+  {field} Date DataCadastro
+}
+
+class Projeto {
+  {field} Int IdProjeto
+  {field} String NomeProjeto
+  {field} Double ValorVendaProjeto
+  {field} Date DataCadastro
+  {field} Date DataInicial
+  {field} Date DataFinal
+  {method} Double CustoProjeto
+  {method} Int NumeroTarefas
+}
+
+class Tarefa {
+  {field} Int IdTarefa
+  {field} String NomeTarefa
+  {field} Date DataCadastro
+  {field} Date DataInicial
+  {field} Date DataFinal
+  {method} Double CustoTarefa
+}
+
+class SubTarefa {
+  {field} Int IdSubTarefa
+  {field} String NomeSubTarefa
+}
+
+Usuario "1" *-up- "many" Projeto
+Projeto "1" *-up- "many" Tarefa
+Tarefa "1" *-up- "many" SubTarefa
+Usuario "1" *-up- "many" SubTarefa
+@enduml
+
+
+<!--
+skin rose
+
+
+
+
+class Dwelling {
+  +Int Windows
+  +void LockTheDoor()
+}
+
+class Apartment
+class House
+class Commune
+class Window
+class Door
+
+Dwelling <|-down- Apartment: Inheritance
+Dwelling <|-down- Commune: Inheritance
+Dwelling <|-down- House: Inheritance
+Dwelling "1" *-up- "many" Window: Composition
+Dwelling "1" *-up- "many" Door: Composition
