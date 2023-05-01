@@ -1,10 +1,21 @@
-@startuml klav-tasks
-!theme materia-outline
+@startuml
+!theme materia
+
+skin rose
 
 title Diagrama de Classes - Klav-Tasks
 
+class Assinatura {
+  {field} Int IdAssinatura
+  {field} String NomeAssinatura
+  {field} Double ValorAssinatura
+  {field} Int NumeroMaximoProjetos
+  {field} Int NumeroMaximoTarefas
+  {field} Int NumeroMaximoSubTarefas
+}
+
 class Usuario {
-  {field} Int IdUsuario
+  {field} UUID IdUsuario
   {field} String NomeUsuario
   {field} String EmailUsuario
   {field} String ValorHoraUsuario
@@ -12,7 +23,7 @@ class Usuario {
 }
 
 class Projeto {
-  {field} Int IdProjeto
+  {field} UUID IdProjeto
   {field} String NomeProjeto
   {field} Double ValorVendaProjeto
   {field} Date DataCadastro
@@ -23,7 +34,7 @@ class Projeto {
 }
 
 class Tarefa {
-  {field} Int IdTarefa
+  {field} UUID IdTarefa
   {field} String NomeTarefa
   {field} Date DataCadastro
   {field} Date DataInicial
@@ -32,36 +43,19 @@ class Tarefa {
 }
 
 class SubTarefa {
-  {field} Int IdSubTarefa
+  {field} UUID IdSubTarefa
   {field} String NomeSubTarefa
+  {field} Date DataCadastro
+  {field} Date DataInicial
+  {field} Date DataFinal
+  {field} Int NumeroHoras
+  {field} Double ValorHoraUsuario
+  {method} CustoSubTarefa
 }
 
-Usuario "1" *-up- "many" Projeto
-Projeto "1" *-up- "many" Tarefa
-Tarefa "1" *-up- "many" SubTarefa
-Usuario "1" *-up- "many" SubTarefa
+Assinatura "1" -left-* "many" Usuario
+Usuario "1" -left-* "many" Projeto
+Projeto "1" --* "many" Tarefa
+Tarefa "1" -right-* "many" SubTarefa
+Usuario "1" --* "many" SubTarefa
 @enduml
-
-
-<!--
-skin rose
-
-
-
-
-class Dwelling {
-  +Int Windows
-  +void LockTheDoor()
-}
-
-class Apartment
-class House
-class Commune
-class Window
-class Door
-
-Dwelling <|-down- Apartment: Inheritance
-Dwelling <|-down- Commune: Inheritance
-Dwelling <|-down- House: Inheritance
-Dwelling "1" *-up- "many" Window: Composition
-Dwelling "1" *-up- "many" Door: Composition
