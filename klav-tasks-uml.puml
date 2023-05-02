@@ -5,57 +5,67 @@ skin rose
 
 title Diagrama de Classes - Klav-Tasks
 
-class Assinatura {
-  {field} Int IdAssinatura
-  {field} String NomeAssinatura
-  {field} Double ValorAssinatura
-  {field} Int NumeroMaximoProjetos
-  {field} Int NumeroMaximoTarefas
-  {field} Int NumeroMaximoSubTarefas
+package com.klav.users {
+
+  class Assinatura {
+    -{field} Int Id
+    -{field} String Nome
+    -{field} Double Valor
+    -{field} Int NumeroMaximoProjetos
+    -{field} Int NumeroMaximoTarefas
+    -{field} Int NumeroMaximoSubTarefas
+  }
+  
+  class Usuario {
+    -{field} Long Id
+    -{field} String Nome
+    -{field} String Email
+    -{field} String ValorHora
+    -{field} Date DataCadastro
+  }
 }
 
-class Usuario {
-  {field} UUID IdUsuario
-  {field} String NomeUsuario
-  {field} String EmailUsuario
-  {field} String ValorHoraUsuario
-  {field} Date DataCadastro
-}
-
-class Projeto {
-  {field} UUID IdProjeto
-  {field} String NomeProjeto
-  {field} Double ValorVendaProjeto
-  {field} Date DataCadastro
-  {field} Date DataInicial
-  {field} Date DataFinal
-  {method} Double CustoProjeto
-  {method} Int NumeroTarefas
-}
-
-class Tarefa {
-  {field} UUID IdTarefa
-  {field} String NomeTarefa
-  {field} Date DataCadastro
-  {field} Date DataInicial
-  {field} Date DataFinal
-  {method} Double CustoTarefa
-}
-
-class SubTarefa {
-  {field} UUID IdSubTarefa
-  {field} String NomeSubTarefa
-  {field} Date DataCadastro
-  {field} Date DataInicial
-  {field} Date DataFinal
-  {field} Int NumeroHoras
-  {field} Double ValorHoraUsuario
-  {method} CustoSubTarefa
+package com.klav.tasks {
+  
+  class Projeto {
+    -{field} Long Id
+    -{field} String UUID
+    -{field} String Nome
+    -{field} String Descricao
+    -{field} Date DataCadastro
+    -{field} Date DataInicial
+    -{field} Date DataFinal
+    -{field} Double ValorVenda
+    +{method} Double CustoTotal
+    +{method} Int NumeroTotalTarefas
+  }
+  
+  class Tarefa {
+    -{field} Long Id
+    -{field} String Descricao
+    -{field} Date DataCadastro
+    -{field} Date DataInicial
+    -{field} Date DataFinal
+    +{method} Double CustoTotal
+    +{method} Int NumeroTotalSubTarefas
+  }
+  
+  class SubTarefa {
+    -{field} Long Id
+    -{field} String Descricao
+    -{field} Date DataCadastro
+    -{field} Date DataInicial
+    -{field} Date DataFinal
+    -{field} Int NumeroHoras
+    -{field} Double ValorHoraUsuario
+    +{method} CustoSubTarefa
+  }
 }
 
 Assinatura "1" -left-* "many" Usuario
 Usuario "1" -left-* "many" Projeto
 Projeto "1" --* "many" Tarefa
 Tarefa "1" -right-* "many" SubTarefa
+Usuario "1" --* "many" SubTarefa
 Usuario "1" --* "many" SubTarefa
 @enduml
