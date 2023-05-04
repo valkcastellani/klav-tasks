@@ -26,6 +26,13 @@ package com.klav.users {
 }
 
 package com.klav.tasks {
+
+  enum Prioridade {
+    BAIXA
+    MEDIA
+    ALTA
+    URGENTE
+  }
   
   class Projeto {
     -{field} Long Id
@@ -42,6 +49,7 @@ package com.klav.tasks {
   
   class Tarefa {
     -{field} Long Id
+    -{field} String Nome
     -{field} String Descricao
     -{field} Date DataCadastro
     -{field} Date DataInicial
@@ -49,9 +57,10 @@ package com.klav.tasks {
     +{method} Double CustoTotal
     +{method} Int NumeroTotalSubTarefas
   }
-  
+
   class SubTarefa {
     -{field} Long Id
+    -{field} String Nome
     -{field} String Descricao
     -{field} Date DataCadastro
     -{field} Date DataInicial
@@ -60,12 +69,19 @@ package com.klav.tasks {
     -{field} Double ValorHoraUsuario
     +{method} CustoSubTarefa
   }
+  
+  class UsuarioProjeto
 }
 
-Assinatura "1" -left-* "many" Usuario
+Assinatura "1" --* "many" Usuario
 Usuario "1" -left-* "many" Projeto
+Usuario "1" --* "many" UsuarioProjeto
+Projeto "1" --* "many" UsuarioProjeto
 Projeto "1" --* "many" Tarefa
-Tarefa "1" -right-* "many" SubTarefa
+Tarefa "1" --* "many" SubTarefa
 Usuario "1" --* "many" SubTarefa
 Usuario "1" --* "many" SubTarefa
+Prioridade "1" -right- "1" Projeto
+Prioridade "1" -- "1" Tarefa
+Prioridade "1" -- "1" SubTarefa
 @enduml
